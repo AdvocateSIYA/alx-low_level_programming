@@ -1,7 +1,8 @@
 #include <stdio.h>
 
 /**
- * write your code here
+ * main - prints a[2] = 98, followed by a new line
+ * Return: void
  */
 
 int main(void)
@@ -13,7 +14,8 @@ int main(void)
 	a[2] = 1024;
 	p = &n;
 
-	*(p + s) = 98;
+	n = 98;
+	*(p + n) = 98;
 	printf("a[2] = %d\n", a[2]);
 	return (0);
 }
