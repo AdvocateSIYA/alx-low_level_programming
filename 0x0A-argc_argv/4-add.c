@@ -18,7 +18,7 @@ int check_num(char *str)
 
 	while (count < strlen(str))
 	{
-		if (is digit(str[count]))
+		if (isdigit(str[count]))
 		{
 			return (0);
 		}
@@ -59,6 +59,6 @@ int main(int argc, char *argv[])
 
 	}
 
-	printf("%d\n, sum");
+	printf("%d\n", sum);
 	return (0);
 }
