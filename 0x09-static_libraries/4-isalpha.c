@@ -1,13 +1,11 @@
-#include "main.h"
-		
+
 /**
- * _isalpha - checks for alphabetic character
- * @n: the character to be checked
- * Return: 1 if c is a letter, 0 otherwise
+ * _isalpha - check if character is lower case
+ * @c: character to be checked
+ *
+ * Return: 1 if lowercase 0 otherwhise
  */
-
-
-int _isalpha(int n)
+int _isalpha(int c)
 {
-	return ((n >= 'a' && n <= 'z') || (n >= 'A' && n <= 'Z'));
+	return (('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') ? 1 : 0);
 }

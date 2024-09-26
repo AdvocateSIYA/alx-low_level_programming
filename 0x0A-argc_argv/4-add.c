@@ -1,64 +1,66 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
+#include <stdio.h>
 #include <string.h>
 
+
+char *number_to_string(int val, int base);
+
 /**
- * check_num - checks string the are digit
- * @str: array str
+ * main - A program that adds positive numbers
+ * @argc: arugment count
+ * @argv: argument list
  *
- * Return: Always 0 (success)
+ * Return: Always 0 (Success)
  */
-
-int check_num(char *str)
+int main(int argc, char **argv)
 {
-	unsigned int count;
 
-	count = 0;
+	int sum = 0;
+	int num = 0;
+	char *str = NULL;
 
-	while (count < strlen(str))
+	while (argc >= 1)
 	{
-		if (isdigit(str[count]))
-		{
-			return (0);
-		}
-		count++;
+		str = argv[argc - 1];
+		num = atoi(str);
 
+		if (num >= 0 && strlen(str) == strlen(number_to_string(num, 10)))
+			sum += num;
+		else
+			break;
+
+		argc--;
 	}
-	return (1);
+
+
+	if (argc == 1)
+		printf("%d\n", sum);
+	else
+	{
+		printf("Error\n");
+		return (1);
+	}
+
+	return (0);
+
 }
 
 /**
- * main - prints the name of the program
- * @argc: count arguments
- * @argv: arguments
- * Return: Always 0 (success)
+ * number_to_string - convert int to string
+ * @val: An integer
+ * @base: An integer
+ *
+ * Return: A pointer to the buffer
  */
-
-int main(int argc, char *argv[])
+char *number_to_string(int val, int base)
 {
-	int count, str_to_int, sum;
+	static char buffer[32] = {0};
 
-	sum = 0;
-	count = 1;
+	int i = 30;
 
-	while (count < argc)
-	{
-		if (check_num(argv[count]))
-		{
-			str_to_int = atoi(argv[count]);
-			sum += str_to_int;
-		}
-		else
-		{
-			printf("Error\n");
-			return (1);
-		}
+	for (; val && i; --i, val /= base)
+		buffer[i] = "0123456789abcdef"[val % base];
 
-		count++;
-
-	}
-
-	printf("%d\n", sum);
-	return (0);
+	return (buffer + i + 1);
 }
+

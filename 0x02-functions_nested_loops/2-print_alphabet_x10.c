@@ -1,26 +1,20 @@
 #include "main.h"
 
-/**
- *print alphabet_x10- prints 10 times the alphabe. in lowercase
 
- followed by a new line
+/**
+ * print_alphabet_x10 - prints 10 times the alphabet, in lowecase
+ *
+ * Return: no return
  */
 void print_alphabet_x10(void)
 {
-	char ch;
-	int i;
+	char c = '\0';
+	int n = 10;
 
-	i = 0;
-
-	while (i < 10)
+	while (n--)
 	{
-		ch = 'a';
-		while (ch <= 'z')
-		{
-			_putchar(ch);
-			ch++;
-		}
+		for (c = 'a'; c <= 'z'; c++)
+			_putchar(c);
 		_putchar('\n');
-		i++;
 	}
 }

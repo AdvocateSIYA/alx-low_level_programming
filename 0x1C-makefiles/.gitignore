@@ -1,0 +1,4 @@
+./Makefile
+./school
+./*.o
+__pycache__/

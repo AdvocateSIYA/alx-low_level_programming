@@ -1,84 +1,86 @@
-#include "main.h"
 #include <stdlib.h>
+#include <stdio.h>
 
-
-/**
- * count_word - helper function to count the number of words in a string
- * @s: string to evaluate
- *
- * Return: number of words
- */
-
-
-int count_word(char *s)
-{
-	int flag, c, w;
-
-	flag = 0;
-	w = 0;
-
-	for (c = 0; s[c] != '\0'; c++)
-	{
-		if (s[c] == ' ')
-			flag = 0;
-		else if (flag == 0)
-		{
-			flag = 1;
-			w++;
-		}
-	}
-
-	return (w);
-}
-
+int word_count(char *str);
 
 /**
- * **strtow - splits a string into words
- * @str: string to split
+ * strtow - splits into words
+ * @str: An string
  *
- * Return: pointer to an array of strings (Success)
- * or NULL (Error)
+ * Return: An array of string
  */
-
-
 char **strtow(char *str)
 {
-	char **matrix, *tmp;
-	int i, k = 0, len = 0, words, c = 0, start, end;
+	char **ws = NULL;
+	int wc = 0, i = 0;
+	char *s = NULL, *e = NULL;
 
-	while (*(str + len))
-		len++;
-	words = count_word(str);
-	if (words == 0)
+	wc = word_count(str);
+	if (wc == 0)
 		return (NULL);
 
-	matrix = (char **) malloc(sizeof(char *) * (words + 1));
-	if (matrix == NULL)
-		return (NULL);
-
-	for (i = 0; i <= len; i++)
+	ws = malloc(sizeof(*ws) * (wc + 1));
+	if (ws != NULL)
 	{
-		if (str[i] == ' ' || str[i] == '\0')
+		i = 0;
+		wc = 0;
+		s = str;
+		while (*s != '\0')
 		{
-			if (c)
+			if (*s != ' ')
 			{
-				end = i;
-				tmp = (char *) malloc(sizeof(char) * (c + 1));
-				if (tmp == NULL)
+				e = s;
+				while (*e != ' ' && *e != '\0')
+					e++;
+
+				ws[wc] = malloc(sizeof(char) * (e - s + 1));
+				if (ws[wc] == NULL)
+				{
+					while (wc >= 0)
+						free(ws[wc--]);
 					return (NULL);
-				while (start < end)
-					*tmp++ = str[start++];
-				*tmp = '\0';
-				matrix[k] = tmp - c;
-				k++;
-				c = 0;
+				}
+
+				i = 0;
+				while (s != e)
+				{
+					ws[wc][i++] = *s;
+					s++;
+				}
+				ws[wc++][i] = '\0';
 			}
+			else
+				s++;
 		}
-		else if (c++ == 0)
-			start = i;
+	}
+	ws[wc] = NULL;
+	return (ws);
+}
+
+/**
+ * word_count - count the words in a string
+ * @str: A string
+ *
+ * Return: The word count
+ */
+int word_count(char *str)
+{
+	int wc = 0;
+
+	if (str == NULL)
+		return (0);
+
+	while (*str != '\0')
+	{
+		if (*str != ' ')
+		{
+			while (*str != ' ' && *str != '\0')
+				str++;
+			wc++;
+		}
+		else
+			str++;
 	}
 
-	matrix[k] = NULL;
-
-	return (matrix);
+	return (wc);
 }
